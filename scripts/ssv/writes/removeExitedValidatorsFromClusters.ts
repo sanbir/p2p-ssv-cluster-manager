@@ -13,9 +13,21 @@ export async function removeExitedValidatorsFromClusters() {
   const proxiesToClustersWithPubkeys = await getProxiesToClustersWithPubkeys()
   const proxies = Object.keys(proxiesToClustersWithPubkeys)
 
+  logger.info('Total proxies:', proxies.length)
+
   // proxies.reverse()
 
-  for (const proxy of proxies) {
+  const proxyToStartWith = undefined
+  let proxiesToUse = proxies
+  if (proxyToStartWith) {
+    proxiesToUse = rotateFrom(proxies, proxyToStartWith);
+  }
+
+  let i = 0
+  for (const proxy of proxiesToUse) {
+    i++
+    logger.info('Starting proxy #', i, proxy)
+
     // iterate proxies
     const clusterKeys = Object.keys(proxiesToClustersWithPubkeys[proxy])
 
@@ -64,4 +76,10 @@ export async function removeExitedValidatorsFromClusters() {
   }
 
   logger.info('removeExitedValidatorsFromClusters finished')
+}
+
+function rotateFrom<T>(arr: readonly T[], start: T): T[] {
+  const i = arr.indexOf(start);
+  if (i === -1) throw new Error("start not in array");
+  return [...arr.slice(i), ...arr.slice(0, i)];
 }
