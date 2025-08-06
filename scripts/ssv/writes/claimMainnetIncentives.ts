@@ -3,7 +3,7 @@ import { logger } from '../../common/helpers/logger'
 import { getP2pSsvProxies } from '../reads/getP2pSsvProxies'
 import { MetaTransaction } from '../../safe/models/MetaTransaction'
 import { encodeFunctionData } from 'viem'
-import { CumulativeMerkleDropAbi } from '../contracts/CumulativeMerkleDropContract'
+import { CumulativeMerkleDropAbi, CumulativeMerkleDropAddresss } from '../contracts/CumulativeMerkleDropContract'
 import { waitForHashToBeApprovedAndExecute } from '../../safe/waitForHashToBeApprovedAndExecute'
 import { getMerkleInfo } from '../reads/getMerkleInfo'
 import { P2pSsvProxyContractAbi } from '../contracts/P2pSsvProxyContractAbi'
@@ -25,8 +25,13 @@ export async function claimMainnetIncentives(shouldForwardToClients: boolean) {
         functionName: 'claim',
         args: [proxy, cumulativeAmount, expectedMerkleRoot, merkleProof],
       })
+      // const callAnyContractCalldata = encodeFunctionData({
+      //   abi: P2pSsvProxyContractAbi,
+      //   functionName: 'callAnyContract',
+      //   args: ['0xe16d6138B1D2aD4fD6603ACdb329ad1A6cD26D9f', claimCalldata],
+      // })
       const metaTx = {
-        to: proxy as `0x${string}`,
+        to: CumulativeMerkleDropAddresss,
         data: claimCalldata,
       }
       metaTxs.push(metaTx)
