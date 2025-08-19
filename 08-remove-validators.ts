@@ -30,6 +30,7 @@ import { blocksPerDay } from './scripts/common/helpers/constants'
 import { setSsvOperatorIds } from './scripts/ssv/writes/setOperatorIds'
 import { setAllowedSsvOperatorOwners } from './scripts/ssv/writes/setAllowedSsvOperatorOwners'
 import { predictP2pSsvProxyAddress_3_1 } from './scripts/ssv/reads/predictP2pSsvProxyAddress_3_1'
+import { bulkRemoveValidator } from './scripts/ssv/writes/bulkRemoveValidator'
 
 async function main() {
   logger.info('97-test started')
@@ -47,7 +48,8 @@ async function main() {
     let _operatorIds: number[]
     const _publicKeys: string[] = []
     const _sharesData: string[] = []
-    const _clientConfig: FeeRecipient = { recipient: '0x427deF1c9d4a067cf7A2e0a1bd3b6280a6bC2bE5', basisPoints: 0 }
+    // const _clientConfig: FeeRecipient = { recipient: '0xF37FeF00Fe67956E9870114815c42F0Cc18373ce', basisPoints: 9300 }
+    const _clientConfig: FeeRecipient = { recipient: '0xFe911e8BCF1E0BF7F8967b8E38B64036924d8Ef2', basisPoints: 0 }
     const _referrerConfig: FeeRecipient = { recipient: zeroAddress, basisPoints: 0 }
 
 
@@ -75,7 +77,7 @@ async function main() {
       totalFeePerBlock * blocksPerDay * allowedDaysToLiquidation
     const _amount =
       neededBalancePerValidator * BigInt(validatorCount) +
-      collateral + 5000000000000000000n
+      collateral
 
     for (const share of shares) {
       _operatorIds = share.payload.operatorIds
@@ -105,11 +107,9 @@ async function main() {
 
     const ssvTokensValueInWei = _amount * 1000000000000n / 1000000000000000000n
 
-    await bulkRegisterValidators(
-      _operatorOwners, _operatorIds!, _publicKeys,
-      _sharesData, _amount, clusterState!,
-      _clientConfig, _referrerConfig, ssvTokensValueInWei
-    )
+
+    await bulkRemoveValidator(proxy, _publicKeys, _operatorIds!, clusterState)
+
   } catch (error) {
     logger.error(error)
   }

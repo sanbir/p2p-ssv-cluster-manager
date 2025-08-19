@@ -10,34 +10,20 @@ import { MetaTransaction } from '../../safe/models/MetaTransaction'
 export async function setSsvOperatorIds() {
   logger.log('setSsvOperatorIds started')
 
-  // const txHash = await sendTx(
-  //   P2pSsvProxyFactoryAddress_3_1,
-  //   P2pSsvProxyFactoryAbi_3_1,
-  //   'setSsvOperatorIds',
-  //   [[52,
-  //     55,
-  //     57,
-  //     59,
-  //     0,0,0,0,0,
-  //     0,0,0,0,0,
-  //     0,0,0,0,0,
-  //     0,0,0,0,0
-  //   ], '0x1f72FC2585D283DfEcF748cc5d19c014158A7C6f'],
-  // )
-
   const setSsvOperatorIdsCalldata = encodeFunctionData({
     abi: P2pSsvProxyFactoryAbi_3_1,
     functionName: 'setSsvOperatorIds',
     args: [
-      [52,
-      55,
-      57,
-      59,
+      [
+        58,
+        59,
+        0,
+        0,
       0,0,0,0,0,
       0,0,0,0,0,
       0,0,0,0,0,
       0,0,0,0,0
-    ], '0x1f72FC2585D283DfEcF748cc5d19c014158A7C6f'],
+    ], '0xfeC26f2bC35420b4fcA1203EcDf689a6e2310363'],
   })
 
   const metaTxs: MetaTransaction[] = []
