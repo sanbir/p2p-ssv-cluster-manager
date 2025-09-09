@@ -47,7 +47,7 @@ async function main() {
     let _operatorIds: number[]
     const _publicKeys: string[] = []
     const _sharesData: string[] = []
-    const _clientConfig: FeeRecipient = { recipient: '0x427deF1c9d4a067cf7A2e0a1bd3b6280a6bC2bE5', basisPoints: 0 }
+    const _clientConfig: FeeRecipient = { recipient: '0x5cb5AdA4388454320325347bE70F07602cC3B2d5', basisPoints: 0 }
     const _referrerConfig: FeeRecipient = { recipient: zeroAddress, basisPoints: 0 }
 
 
@@ -75,7 +75,7 @@ async function main() {
       totalFeePerBlock * blocksPerDay * allowedDaysToLiquidation
     const _amount =
       neededBalancePerValidator * BigInt(validatorCount) +
-      collateral + 5000000000000000000n
+      collateral // + 2000000000000000000n
 
     for (const share of shares) {
       _operatorIds = share.payload.operatorIds
@@ -83,10 +83,10 @@ async function main() {
       _sharesData.push(share.payload.sharesData)
     }
 
+    _operatorOwners.push('0xfeC26f2bC35420b4fcA1203EcDf689a6e2310363')
     _operatorOwners.push('0x95b3D923060b7E6444d7C3F0FCb01e6F37F4c418')
     _operatorOwners.push('0x47659cc5fB8CDC58bD68fEB8C78A8e19549d39C5')
     _operatorOwners.push('0x9a792B1588882780Bed412796337E0909e51fAB7')
-    _operatorOwners.push('0xfeC26f2bC35420b4fcA1203EcDf689a6e2310363')
 
     const proxy: string = await predictP2pSsvProxyAddress_3_1(_clientConfig, _referrerConfig) as string
 
@@ -103,7 +103,7 @@ async function main() {
       clusterState = toClusterState(clusterStateFromApi)
     }
 
-    const ssvTokensValueInWei = _amount * 1000000000000n / 1000000000000000000n
+    const ssvTokensValueInWei = _amount * 7539000000000000n / 1000000000000000000n
 
     await bulkRegisterValidators(
       _operatorOwners, _operatorIds!, _publicKeys,

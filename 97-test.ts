@@ -36,8 +36,40 @@ async function main() {
   logger.info('97-test started')
 
   try {
+    const clientConfig: FeeRecipient = {
+      basisPoints: 0,
+      recipient: '0x5cb5ada4388454320325347be70f07602cc3b2d5'
+    }
+    const referrerConfig: FeeRecipient = {
+      basisPoints: 0,
+      recipient: '0x0000000000000000000000000000000000000000',
+    }
+
+    const proxy: string = await predictP2pSsvProxyAddress_3_1(clientConfig, referrerConfig) as string
+    console.log(proxy)
+
     // await setAllowedSsvOperatorOwners()
-    await setSsvOperatorIds()
+    // await setSsvOperatorIds()
+
+    // const proxy = '0x367dAB908Cdd0058F51A26DD107F9C41549f51c2'
+    // const _publicKeys = [
+    //   "0xa333572684fd3c7c2f6eb6da9d9752120810d51133c65526a3ebc3762912613822005af4ad42767219de72659aa8b262",
+    // ]
+    // const _operatorIds = [
+    //   365,
+    //   1032,
+    //   1033,
+    //   1035
+    // ]
+    // const clusterState: ClusterState = {
+    //   validatorCount: 1,
+    //   networkFeeIndex: 243789742695n,
+    //   index: 198912897708n,
+    //   active: true,
+    //   balance: 2103958240000000000n
+    // }
+    //
+    // await bulkRemoveValidator(proxy, _publicKeys, _operatorIds, clusterState)
 
   } catch (error) {
     logger.error(error)
