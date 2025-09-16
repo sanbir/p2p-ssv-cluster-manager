@@ -38,7 +38,7 @@ export async function sendTx(
       maxPriorityFeePerGas: parseGwei(
         process.env.MAX_PIORITY_FEE_PER_GAS_IN_GWEI,
       ) / BigInt(10) +  BigInt(1),
-      gas: 10000000n,
+      gas: 10000000n
     })
 
     logger.log('Tx sent: ' + txHash)

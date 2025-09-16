@@ -22,6 +22,7 @@
     "05-claim-mainnet-incentives": "ts-node 05-claim-mainnet-incentives.ts",
     "06-set-fee-recipients": "ts-node 06-set-fee-recipients.ts",
     "07-register-validators": "ts-node 07-register-validators.ts",
+    "08-remove-validators": "ts-node 08-remove-validators.ts",
     "97-test": "ts-node 97-test.ts",
     "96-superform-api": "ts-node 96-superform-api.ts",
     "95-superform-withdraw": "ts-node 95-superform-withdraw.ts",
