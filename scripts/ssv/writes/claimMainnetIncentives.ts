@@ -3,11 +3,16 @@ import { logger } from '../../common/helpers/logger'
 import { getP2pSsvProxies } from '../reads/getP2pSsvProxies'
 import { MetaTransaction } from '../../safe/models/MetaTransaction'
 import { encodeFunctionData } from 'viem'
-import { CumulativeMerkleDropAbi, CumulativeMerkleDropAddresss } from '../contracts/CumulativeMerkleDropContract'
+import {
+  CumulativeMerkleDropAbi,
+  CumulativeMerkleDropAddresss,
+  CumulativeMerkleDropContract
+} from '../contracts/CumulativeMerkleDropContract'
 import { waitForHashToBeApprovedAndExecute } from '../../safe/waitForHashToBeApprovedAndExecute'
 import { getMerkleInfo } from '../reads/getMerkleInfo'
 import { P2pSsvProxyContractAbi } from '../contracts/P2pSsvProxyContractAbi'
 import { getProxyClient } from '../reads/getProxyClient'
+import { SSVNetworkViewsContract } from '../contracts/SSVNetworkViewsContract'
 
 export async function claimMainnetIncentives(shouldForwardToClients: boolean) {
   logger.info('claimMainnetIncentives started')
@@ -36,6 +41,9 @@ export async function claimMainnetIncentives(shouldForwardToClients: boolean) {
       }
       metaTxs.push(metaTx)
 
+      const preclaimed = (await CumulativeMerkleDropContract.read.cumulativeClaimed([proxy])) as bigint
+      const amountToTransfer = BigInt(cumulativeAmount) - preclaimed
+
       if (shouldForwardToClients) {
         const client = await getProxyClient(proxy)
 
@@ -44,7 +52,7 @@ export async function claimMainnetIncentives(shouldForwardToClients: boolean) {
           functionName: 'withdrawSSVTokens',
           args: [
             client,
-            cumulativeAmount,
+            amountToTransfer,
           ],
         })
         const withdrawSSVTokensMetaTx = {
@@ -58,7 +66,7 @@ export async function claimMainnetIncentives(shouldForwardToClients: boolean) {
           functionName: 'withdrawSSVTokens',
           args: [
             process.env.P2P_SSV_PROXY_FACTORY_ADDRESS,
-            cumulativeAmount,
+            amountToTransfer,
           ],
         })
         const withdrawSSVTokensMetaTx = {
