@@ -45,7 +45,7 @@ async function main() {
     // await setAllowedSsvOperatorOwners()
     // await setSsvOperatorIds()
 
-    const fileContent = readFileSync('keyshares.json', 'utf-8');
+    const fileContent = readFileSync('keystores_part_01.json', 'utf-8');
     const sharesFile: SharesFile = JSON.parse(fileContent);
     const shares = sharesFile.shares
 
@@ -118,45 +118,12 @@ async function main() {
 
     const ssvTokensValueInWei = _amount * 1000000000000n / 1000000000000000000n
 
-    // const txHash = await sendTx(
-    //   '0xa36420834ddd3a45F75016a328C784B2EE77e136',
-    //   FeeDistributorFactoryAbi,
-    //   'changeOperator',
-    //   ['0x5ed861aec31cCB496689FD2E0A1a3F8e8D7B8824'],
-    // )
-    // logger.info('changeOperator to 0x5ed861aec31cCB496689FD2E0A1a3F8e8D7B8824 txHash', txHash)
-
-    const operator =
-      (await FeeDistributorFactoryContract.read.operator()) as string
-
-    logger.info('actual operator', operator)
-
-    if (operator.toLowerCase() !== '0x5ed861aec31cCB496689FD2E0A1a3F8e8D7B8824'.toLowerCase()) {
-      logger.info('changeOperator did not work')
-      return
-    }
-
-    // await bulkRegisterValidators(
-    //   _operatorOwners, _operatorIds!, _publicKeys,
-    //   _sharesData, _amount, clusterState!,
-    //   _clientConfig, _referrerConfig, ssvTokensValueInWei
-    // )
-
-    const txHash2 = await sendTx(
-      '0xa36420834ddd3a45F75016a328C784B2EE77e136',
-      FeeDistributorFactoryAbi,
-      'changeOperator',
-      ['0xcb924D4BE3Ff04B2d2116fE116138950373111d9'],
+    await bulkRegisterValidators(
+      _operatorOwners, _operatorIds!, _publicKeys,
+      _sharesData, _amount, clusterState!,
+      _clientConfig, _referrerConfig, ssvTokensValueInWei
     )
-    logger.info('changeOperator to 0xcb924D4BE3Ff04B2d2116fE116138950373111d9 txHash', txHash2)
 
-    const operator2 =
-      (await FeeDistributorFactoryContract.read.operator()) as string
-
-    logger.info('actual operator2', operator2)
-    if (operator2.toLowerCase() !== '0xcb924D4BE3Ff04B2d2116fE116138950373111d9'.toLowerCase()) {
-      logger.info('changeOperator back did not work')
-    }
   } catch (error) {
     logger.error(error)
   }
