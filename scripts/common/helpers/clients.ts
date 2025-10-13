@@ -34,6 +34,6 @@ export const publicClient = createPublicClient({
 
 export const walletClient = createWalletClient({
   chain,
-  transport: http(process.env.RPC_URL),
+  transport: http(process.env.RPC_URL_SEND),
   account,
 })
