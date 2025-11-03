@@ -11,17 +11,19 @@ async function main() {
 
   const clusterLiquidationDates = []
   for (const clusterState of clusterStates) {
-    const { daysToLiquidation } =
+    const { daysToLiquidation, validatorCount } =
       await getDaysToLiquidation(clusterState)
 
-    clusterLiquidationDates.push({id: clusterState.clusterId, days: daysToLiquidation})
+    clusterLiquidationDates.push({id: clusterState.clusterId, days: daysToLiquidation, validatorCount})
   }
 
   clusterLiquidationDates.sort((a, b) => Number(a.days - b.days))
 
   for (const date of clusterLiquidationDates) {
-    console.log(date.id + ',' + date.days)
+    console.log(date.id + ',' + date.days, date.validatorCount)
   }
+
+  logger.info('ones', clusterLiquidationDates.filter(date => date.validatorCount == 1).length)
 
   logger.info('04-get-liquidation-dates')
 }

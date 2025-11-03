@@ -45,7 +45,7 @@ async function main() {
     // await setAllowedSsvOperatorOwners()
     // await setSsvOperatorIds()
 
-    const fileContent = readFileSync('keystores_part_01.json', 'utf-8');
+    const fileContent = readFileSync('keyshares.json', 'utf-8');
     const sharesFile: SharesFile = JSON.parse(fileContent);
     const shares = sharesFile.shares
 
@@ -56,12 +56,12 @@ async function main() {
     const _sharesData: string[] = []
 
     const _clientConfig: FeeRecipient = {
-      basisPoints: 0,
-      recipient: '0x5cb5ada4388454320325347be70f07602cc3b2d5'
+      basisPoints: 10000,
+      recipient: '0x4205f876f0f6783a011bd11076583fe57c88af33'
     }
     const _referrerConfig: FeeRecipient = {
-      basisPoints: 10000,
-      recipient: '0xD6E4aA932147A3FE5311dA1b67D9e73da06F9cEf',
+      basisPoints: 0,
+      recipient: zeroAddress,
     }
 
     if (!process.env.ALLOWED_DAYS_TO_LIQUIDATION) {

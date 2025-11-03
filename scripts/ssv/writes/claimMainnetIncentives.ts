@@ -14,6 +14,11 @@ import { P2pSsvProxyContractAbi } from '../contracts/P2pSsvProxyContractAbi'
 import { getProxyClient } from '../reads/getProxyClient'
 import { SSVNetworkViewsContract } from '../contracts/SSVNetworkViewsContract'
 
+const nonForwardToClientsProxies = [
+  '0xc0Ec400995e2BC1e12837804d512302f7feEF769',
+  '0x745Ced32ee83e1CC186dF0C32FeD1B54F3F15057'
+]
+
 export async function claimMainnetIncentives(shouldForwardToClients: boolean) {
   logger.info('claimMainnetIncentives started')
 
@@ -44,7 +49,7 @@ export async function claimMainnetIncentives(shouldForwardToClients: boolean) {
       const preclaimed = (await CumulativeMerkleDropContract.read.cumulativeClaimed([proxy])) as bigint
       const amountToTransfer = BigInt(cumulativeAmount) - preclaimed
 
-      if (shouldForwardToClients) {
+      if (!nonForwardToClientsProxies.map(a => a.toLowerCase()).includes(proxy.toLowerCase())) {
         const client = await getProxyClient(proxy)
 
         const withdrawSSVTokensData = encodeFunctionData({

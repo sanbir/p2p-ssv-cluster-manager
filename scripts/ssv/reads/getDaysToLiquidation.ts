@@ -67,5 +67,5 @@ export async function getDaysToLiquidation(clusterState: ClusterStateApi) {
 
   logger.info('getDaysToLiquidation finished for ' + clusterState.clusterId)
 
-  return { daysToLiquidation, tokensToAdd }
+  return { daysToLiquidation, tokensToAdd, validatorCount }
 }

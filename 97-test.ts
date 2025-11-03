@@ -37,12 +37,12 @@ async function main() {
 
   try {
     const clientConfig: FeeRecipient = {
-      basisPoints: 0,
-      recipient: '0x5cb5ada4388454320325347be70f07602cc3b2d5'
+      basisPoints: 10000,
+      recipient: '0x4205f876f0f6783a011bd11076583fe57c88af33'
     }
     const referrerConfig: FeeRecipient = {
-      basisPoints: 10000,
-      recipient: '0xD6E4aA932147A3FE5311dA1b67D9e73da06F9cEf',
+      basisPoints: 0,
+      recipient: zeroAddress,
     }
 
     const proxy: string = await predictP2pSsvProxyAddress_3_1(clientConfig, referrerConfig) as string

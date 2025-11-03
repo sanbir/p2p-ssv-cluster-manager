@@ -43,16 +43,16 @@ export async function bulkRegisterValidators(
   logger.info('_amount', _amount)
   logger.info('ssvTokensValueInWei', ssvTokensValueInWei)
 
-  // const setFeeRecipientAddressCalldata = encodeFunctionData({
-  //   abi: SSVNetworkAbi,
-  //   functionName: 'setFeeRecipientAddress',
-  //   args: ['0xFe911e8BCF1E0BF7F8967b8E38B64036924d8Ef2'],
-  // })
-  // const setFeeRecipientAddressMetaTx = {
-  //   to: proxy as `0x${string}`,
-  //   data: setFeeRecipientAddressCalldata,
-  // }
-  // metaTxs.push(setFeeRecipientAddressMetaTx)
+  const setFeeRecipientAddressCalldata = encodeFunctionData({
+    abi: SSVNetworkAbi,
+    functionName: 'setFeeRecipientAddress',
+    args: ['0x4205F876f0F6783a011bD11076583FE57C88AF33'],
+  })
+  const setFeeRecipientAddressMetaTx = {
+    to: proxy as `0x${string}`,
+    data: setFeeRecipientAddressCalldata,
+  }
+  metaTxs.push(setFeeRecipientAddressMetaTx)
 
   await waitForHashToBeApprovedAndExecute(metaTxs)
 
