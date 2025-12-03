@@ -65,11 +65,8 @@ jobs:
         env:
           _BUILD_TAG: sha-${{ github.sha }}
         run: |
-          # dev
-          yq eval ".image.tag = \"${_BUILD_TAG}\"" -i charts/p2pwebsite-ssv-cluster-manager/values.dev.yaml
           # prod
-          yq eval ".image.tag = \"${_BUILD_TAG}\"" -i charts/p2pwebsite-ssv-cluster-manager/values.prod.yaml
-
+          yq eval ".app.image.tag = \"${_BUILD_TAG}\"" -i charts/p2pwebsite-ssv-cluster-manager/values.prod.yaml
       - name: push changes
         env:
           AUTHOR_NAME: ${{ needs.docker-build.outputs.author-name }}
