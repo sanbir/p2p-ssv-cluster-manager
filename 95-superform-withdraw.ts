@@ -11,40 +11,20 @@ async function main() {
     "is_part_of_multi_vault": false,
     "need_insurance": true,
     "positive_slippage": 5000,
-    "refund_address": "0xB3055eBe6b9c43C86fb684D512123Fd88f8A6f19",
+    "refund_address": "0x8D1a5E9FE73529c4444Aa07ABD6D76C98d32394b",
     "retain_4626": false,
     "route_type": "output",
-    "superform_id": "62771017355719924073415107184762436314210793315584517036224",
-    "superpositions_amount_in": "12340000000000000",
-    "superpositions_chain_id": 10,
+    "superform_id": "53060340969225815226237768346742701413530550720430230111181046",
+    "superpositions_amount_in": "4477",
+    "superpositions_chain_id": 8453,
     "swap_slippage": 5000,
-    "to_chain_id": 10,
-    "to_token_address": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
-    "user_address": "0xB3055eBe6b9c43C86fb684D512123Fd88f8A6f19",
-    "vault_id": "FZuZKa74BkF7AlFM7_7lo",
+    "to_chain_id": 8453,
+    "to_token_address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+    "user_address": "0x8D1a5E9FE73529c4444Aa07ABD6D76C98d32394b",
+    "vault_id": "2GoghTk010_A08iZkKpgg",
   }
 
-  const bodyObject2 = {
-    "bridge_slippage": 5000,
-    "filter_swap_routes": false,
-    "is_erc20": false,
-    "is_part_of_multi_vault": false,
-    "need_insurance": true,
-    "positive_slippage": 5000,
-    "refund_address": "0xB3055eBe6b9c43C86fb684D512123Fd88f8A6f19",
-    "retain_4626": false,
-    "route_type": "output",
-    "superform_id": "62771017356190754913478451444852273738203985736479809223259",
-    "superpositions_amount_in": "1585698062024061",
-    "superpositions_chain_id": 10,
-    "swap_slippage": 5000,
-    "to_chain_id": 10,
-    "to_token_address": "0x94b008aA00579c1307B0EF2c499aD98a8ce58e58",
-    "user_address": "0xB3055eBe6b9c43C86fb684D512123Fd88f8A6f19",
-    "vault_id": "PmqSgkenJy9a1xfwNSMDo",
-  }
-
-  const body = JSON.stringify([bodyObject, bodyObject2])
+  const body = JSON.stringify([bodyObject])
 
   try {
     const response = await fetch("https://api.superform.xyz/withdraw/calculate/", {
