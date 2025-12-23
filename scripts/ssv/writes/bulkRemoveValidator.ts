@@ -20,12 +20,14 @@ export async function bulkRemoveValidator(
     operatorIds.join(',') + ' ' + publicKeys.join('\n'),
   )
 
+  const distinctPubKeys = distinct(publicKeys)
+
   const metaTxs: MetaTransaction[] = []
 
   const bulkRemoveData = encodeFunctionData({
     abi: SSVNetworkAbi,
     functionName: 'bulkRemoveValidator',
-    args: [publicKeys, operatorIds, cluster],
+    args: [distinctPubKeys, operatorIds, cluster],
   })
   const metaTx = {
     to: proxy as `0x${string}`,
@@ -37,6 +39,8 @@ export async function bulkRemoveValidator(
 
   logger.log(
     'bulkRemoveValidator finished for ' + proxy,
-    operatorIds.join(',') + ' ' + publicKeys.join('\n'),
+    operatorIds.join(',') + ' ' + distinctPubKeys.join('\n'),
   )
 }
+
+const distinct = <T>(arr: readonly T[]) => [...new Set(arr)]
