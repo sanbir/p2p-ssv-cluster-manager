@@ -28,6 +28,11 @@ export async function claimMainnetIncentives(shouldForwardToClients: boolean) {
 
   for (const proxy of proxies) {
     try {
+      // if (proxy.toLowerCase() === '0x008522637b4f6c5a6a6992ec7d47205e3e1ea7d4'.toLowerCase()) {
+      //   logger.info('skipping', '0x008522637b4f6c5a6a6992ec7d47205e3e1ea7d4')
+      //   continue
+      // }
+
       const { cumulativeAmount, expectedMerkleRoot, merkleProof } = getMerkleInfo(proxy)
 
       const claimCalldata = encodeFunctionData({
