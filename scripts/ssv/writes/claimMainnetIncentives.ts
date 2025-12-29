@@ -28,8 +28,12 @@ export async function claimMainnetIncentives(shouldForwardToClients: boolean) {
 
   for (const proxy of proxies) {
     try {
-      // if (proxy.toLowerCase() === '0x008522637b4f6c5a6a6992ec7d47205e3e1ea7d4'.toLowerCase()) {
-      //   logger.info('skipping', '0x008522637b4f6c5a6a6992ec7d47205e3e1ea7d4')
+      // if (proxy.toLowerCase() === '0x9bb31c493df3e8acb2a08396f052cf30e917382b'.toLowerCase()) {
+      //   logger.info('skipping', '0x9bb31c493df3e8acb2a08396f052cf30e917382b')
+      //   continue
+      // }
+      // if (proxy.toLowerCase() === '0x5cbaa5f5a6f70b5ad920037351aa2d9bdc9d4d35'.toLowerCase()) {
+      //   logger.info('skipping', '0x5cbaa5f5a6f70b5ad920037351aa2d9bdc9d4d35')
       //   continue
       // }
 
