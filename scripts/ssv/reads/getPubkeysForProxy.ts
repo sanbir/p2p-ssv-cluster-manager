@@ -13,7 +13,7 @@ export async function getPubkeysForProxy(proxy: string) {
     address: SSVNetworkAddresss,
     abi: SSVNetworkAbi,
     eventName: 'ValidatorAdded',
-    fromBlock: isHolesky ? 1502570n : 1000000n,
+    fromBlock: isHolesky ? 1n : 1000000n,
     toBlock: 'latest',
     strict: true,
     args: {
@@ -28,8 +28,8 @@ export async function getPubkeysForProxy(proxy: string) {
           abi: SSVNetworkAbi,
           data: log.data,
           topics: log.topics,
-        }).args as unknown as { publicKey: string }
-      ).publicKey,
+        }).args as unknown as { publicKey: string, operatorIds: number[] }
+      ),
   )
 
   logger.info('getPubkeysForProxy finished for ' + proxy)
